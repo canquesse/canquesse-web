@@ -13,9 +13,12 @@ export default function Contact({ t }: { t: T }) {
 
       <div className="contact-grid">
         <div className="contact-links" aria-label={t.nav.contact}>
-          {config.links.map((l) => (
+          {/* Etiketler çeviriden gelir — config.links[].label sabit Türkçe
+              ("E-POSTA") olduğu için her dilde aynı görünüyordu. SiteFooter da
+              aynı deseni kullanıyor. */}
+          {config.links.map((l, index) => (
             <a key={l.label} className="contact-link" href={l.href} target="_blank" rel="noreferrer">
-              <span className="contact-link-label">{l.label}</span>
+              <span className="contact-link-label">{t.footer.links[index]}</span>
               <span className="contact-link-arrow" aria-hidden="true">↗</span>
             </a>
           ))}

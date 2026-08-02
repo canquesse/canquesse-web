@@ -75,6 +75,13 @@ export interface T {
     toTop: string;
     links: [string, string, string];
   };
+  notFound: {
+    kicker: string;
+    title: string;
+    desc: string;
+    home: string;
+    contact: string;
+  };
 }
 
 export const translations: Record<Lang, T> = {
@@ -237,6 +244,13 @@ export const translations: Record<Lang, T> = {
       responseItems: ['problem ve kullanıcı bağlamı', 'mevcut teknik altyapı', 'AI entegrasyonunun gerçekten değer kattığı nokta'],
     },
     footer: { motto: 'builds.', toTop: 'başa dön', links: ['GITHUB', 'LINKEDIN', 'E-POSTA'] },
+    notFound: {
+      kicker: 'SAYFA BULUNAMADI',
+      title: 'Bu adreste bir şey yok.',
+      desc: 'Aradığın sayfa taşınmış ya da hiç var olmamış olabilir. Aşağıdan devam edebilirsin.',
+      home: 'ana sayfa',
+      contact: 'iletişime geç',
+    },
   },
 
   /* ── ENGLISH ──────────────────────────────────────────── */
@@ -397,6 +411,13 @@ export const translations: Record<Lang, T> = {
       responseItems: ['problem and user context', 'current technical foundation', 'where AI integration creates real value'],
     },
     footer: { motto: 'builds.', toTop: 'back to top', links: ['GITHUB', 'LINKEDIN', 'EMAIL'] },
+    notFound: {
+      kicker: 'PAGE NOT FOUND',
+      title: 'There is nothing at this address.',
+      desc: 'The page you are looking for may have moved, or it may never have existed. Pick a way forward below.',
+      home: 'home',
+      contact: 'get in touch',
+    },
   },
 
   /* ── DEUTSCH ──────────────────────────────────────────── */
@@ -557,5 +578,12 @@ export const translations: Record<Lang, T> = {
       responseItems: ['Problem und Nutzerkontext', 'aktuelle technische Basis', 'wo KI-Integration echten Wert schafft'],
     },
     footer: { motto: 'builds.', toTop: 'nach oben', links: ['GITHUB', 'LINKEDIN', 'E-MAIL'] },
+    notFound: {
+      kicker: 'SEITE NICHT GEFUNDEN',
+      title: 'Unter dieser Adresse ist nichts.',
+      desc: 'Die gesuchte Seite wurde vielleicht verschoben oder hat nie existiert. Unten geht es weiter.',
+      home: 'startseite',
+      contact: 'kontakt aufnehmen',
+    },
   },
 };

@@ -642,14 +642,22 @@ html[data-theme="light"] .brand .logo-mark { filter: drop-shadow(0 4px 12px rgba
   }
 }
 @media (max-width: 620px) {
-  .site-header-inner { padding-block: 0.72rem; }
+  .site-header-inner { padding-block: 0.72rem; column-gap: 0.75rem; }
   .brand { gap: 0.62rem; }
   .brand .logo-mark { width: 3.55rem; }
   .brand-wordmark { width: 8.25rem; }
 }
+/* Below ~460px the brand and the controls stop fitting the header row side by
+   side, which pushed the whole grid — and with it the page — wider than the
+   viewport. Both sides scale with the viewport from here down so the row keeps
+   fitting all the way to 320px instead of breaking at a fixed step. */
 @media (max-width: 460px) {
-  .brand .logo-mark { width: 3.2rem; }
-  .brand-wordmark { width: 7.25rem; }
+  .brand { gap: 0.45rem; }
+  .brand .logo-mark { width: min(3.2rem, 12vw); }
+  .brand-wordmark { width: min(7.25rem, 26vw); }
+  .header-controls { gap: 0.28rem; padding: 0.3rem; }
+  .lang-btn { padding: 0.55rem 0.5rem; }
+  .hc-divider { display: none; }
 }
 
 /* ── Home — hero ───────────────────────────────────────────────────────── */
@@ -778,12 +786,19 @@ html[data-theme="light"] .brand .logo-mark { filter: drop-shadow(0 4px 12px rgba
 }
 .tess-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 @media (max-width: 880px) {
+  /* The tesseract is meant to bleed past the text column, but on a phone that
+     bleed escaped the document and gave the whole page a horizontal scroll.
+     Clipping at the hero keeps the bleed as a look without the side-scroll.
+     Desktop keeps overflow: visible so the full-bleed composition survives. */
+  .home-hero { overflow: clip; }
   .tess {
     left: 50%; top: auto; bottom: -8%;
     width: min(135vw, 42rem);
     aspect-ratio: 1 / 1;
     transform: translateX(-50%);
-    opacity: 0.5;
+    /* At 0.5 the wireframe ran straight through the proof list and made it hard
+       to read; on a small screen the text has nowhere else to go. */
+    opacity: 0.3;
   }
 }
 
@@ -849,6 +864,9 @@ html[data-theme="light"] .brand .logo-mark { filter: drop-shadow(0 4px 12px rgba
 @media (max-width: 880px) {
   .home-hero-text { max-width: 100%; }
   .hero-proof { grid-template-columns: 1fr; gap: var(--s4); }
+  /* These sit over the tesseract on mobile, so they need more contrast than the
+     desktop --ink-2 to stay comfortably readable. */
+  .hero-proof-label { color: var(--ink); font-size: 0.95rem; }
 }
 
 /* ── Marquee (running headline) ────────────────────────────────────────── */
@@ -1896,6 +1914,45 @@ html.lang-stage-enter :where(.site-nav, .shell, .site-footer) {
 @media (max-width: 760px) {
   .footer-grid { grid-template-columns: 1fr; gap: var(--s6); }
   .footer-base { flex-direction: row; }
+}
+
+/* ── 404 ───────────────────────────────────────────────────────────────── */
+/* The code is set as a structural slab rather than decoration: it carries the
+   page the way the oversized headline carries the home hero. */
+.notfound-code {
+  margin-top: var(--s5);
+  font-size: clamp(4.5rem, 3rem + 12vw, 11rem);
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--line-3);
+}
+.notfound-hero .page-title { margin-top: var(--s5); }
+
+.notfound-index {
+  display: flex; flex-direction: column;
+  border-top: 1px solid var(--line);
+}
+.notfound-index-row {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--s4);
+  padding: clamp(1.1rem, 2.4vw, 1.7rem) 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  transition: color var(--dur-fast) var(--ease), padding-left var(--dur-fast) var(--ease);
+}
+.notfound-index-name {
+  font-family: var(--display); font-weight: 600;
+  font-size: var(--t-h2); line-height: 1; letter-spacing: -0.02em;
+  text-transform: lowercase;
+}
+.notfound-index-arrow { font-family: var(--mono); color: var(--ink-3); }
+.notfound-index-row:hover { padding-left: var(--s3); color: var(--red); }
+.notfound-index-row:hover .notfound-index-arrow { color: var(--red); }
+.notfound-index-row:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .notfound-index-row:hover { padding-left: 0; }
 }
 
 /* ── Reduced-motion global guard ───────────────────────────────────────── */

@@ -3,10 +3,43 @@ import "./globals.css";
 import { LangProvider } from "@/components/LangProvider";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import { SITE_URL, OG_IMAGE } from "@/lib/seo";
 
+const DESCRIPTION =
+  "Canquesse is an independent product studio turning complex AI ideas into clear experiences and production-ready products.";
+
+// Sayfa dili istemcide değişiyor ama statik HTML tek bir dille servis ediliyor
+// (LangProvider varsayılanı: en). Paylaşım kartları ve arama motorları o HTML'i
+// gördüğü için metadata da İngilizce tutuluyor.
 export const metadata: Metadata = {
-  title: "Canquesse AI Solutions",
-  description: "Canquesse AI Solutions — yapay zekâ çözümleri tasarlıyor ve uçtan uca geliştiriyoruz. Full-stack studio.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Canquesse AI Solutions",
+    template: "%s — Canquesse",
+  },
+  description: DESCRIPTION,
+  applicationName: "Canquesse",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: "Canquesse AI Solutions",
+    locale: "en",
+    url: "/",
+    title: "Canquesse AI Solutions",
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Canquesse AI Solutions",
+    description: DESCRIPTION,
+    images: [OG_IMAGE.url],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
 };
 
 // Set the theme before first paint to avoid a flash of the wrong palette.
