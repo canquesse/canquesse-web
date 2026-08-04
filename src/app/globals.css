@@ -1219,6 +1219,12 @@ html[data-theme="light"] .brand .logo-mark { filter: drop-shadow(0 4px 12px rgba
 .disc-titles { display: flex; flex-direction: column; gap: 0.4rem; min-width: 0; }
 .disc-title { font-family: var(--display); font-weight: 600; font-size: clamp(1.15rem, 1rem + 0.8vw, 1.6rem); letter-spacing: -0.01em; overflow-wrap: anywhere; }
 .disc-meta { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--ink-3); }
+/* Kapalıyken de görünen özet: liste açmadan taranabilsin diye. Gövde
+   yazısıyla aynı ailede — mono meta satırıyla karışmasın. */
+.disc-summary {
+  color: var(--ink-2); font-size: 0.95rem; line-height: 1.5;
+  max-width: 62ch; text-wrap: pretty;
+}
 .disc-role { color: var(--ink-2); }
 .disc-icon {
   position: relative; flex: 0 0 auto; width: 2.15rem; height: 2.15rem;

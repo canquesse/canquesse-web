@@ -9,11 +9,14 @@ import { useId, useState, type ReactNode } from 'react';
 export default function Disclosure({
   title,
   meta,
+  summary,
   defaultOpen = false,
   children,
 }: {
   title: ReactNode;
   meta?: ReactNode;
+  /** Kapalıyken de görünen tek cümlelik özet — liste açmadan taranabilsin diye. */
+  summary?: ReactNode;
   defaultOpen?: boolean;
   children: ReactNode;
 }) {
@@ -32,6 +35,7 @@ export default function Disclosure({
         <span className="disc-titles">
           <span className="disc-title">{title}</span>
           {meta && <span className="disc-meta mono">{meta}</span>}
+          {summary && <span className="disc-summary">{summary}</span>}
         </span>
         <span className="disc-icon" aria-hidden="true">
           <span className="disc-icon-bar" />

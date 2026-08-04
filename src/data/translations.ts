@@ -205,6 +205,12 @@ export const translations: Record<Lang, T> = {
     },
     projects: [
       {
+        tagline: 'AI ajanları için ölçüm ve gözlemlenebilirlik platformu',
+        desc:    'Ajan davranışını ölçmek, regresyonları yakalamak ve görevleri uçtan uca izlemek için altı aylık yol haritasıyla geliştirilen platform.',
+        role:    'Platform mimarisi + eval altyapısı',
+        bullets: ['Python/FastAPI ajan çalışma zamanı ve Java 21 kontrol düzlemi', 'Adım adım izleme, eval harness ve maliyet/gecikme takibi'],
+      },
+      {
         tagline: 'YouTube için cihaz üzerinde AI yüz tanıma',
         desc:    'Seçilen kişileri cihaz üzerinde tanıyıp göründükleri sahneleri otomatik atlayan, gizlilik odaklı Chrome uzantısı.',
         role:    'AI ürün mühendisliği',
@@ -215,12 +221,6 @@ export const translations: Record<Lang, T> = {
         desc:    '30’dan fazla küresel kaynaktan medikal teknoloji haberlerini, FDA ve CE/MDR onaylarını tek akışta izleyen kişisel platform.',
         role:    'Ürün geliştirme + veri toplama',
         bullets: ['Gerçek zamanlı haber toplama ve otomatik Türkçe başlık çevirisi', 'Onay takibi, kategori filtreleri ve favori sistemi'],
-      },
-      {
-        tagline: 'AI ajanları için ölçüm ve gözlemlenebilirlik platformu',
-        desc:    'Ajan davranışını ölçmek, regresyonları yakalamak ve görevleri uçtan uca izlemek için altı aylık yol haritasıyla geliştirilen açık kaynak platform.',
-        role:    'Platform mimarisi + eval altyapısı',
-        bullets: ['Python/FastAPI ajan çalışma zamanı ve Java 21 kontrol düzlemi', 'Adım adım izleme, eval harness ve maliyet/gecikme takibi'],
       },
       {
         tagline: 'JavaFX tabanlı hisse analiz aracı',
@@ -373,6 +373,12 @@ export const translations: Record<Lang, T> = {
     },
     projects: [
       {
+        tagline: 'Measurement and observability platform for AI agents',
+        desc:    'A platform being developed through a six-month roadmap to measure agent behavior, catch regressions and trace tasks end to end.',
+        role:    'Platform architecture + eval infrastructure',
+        bullets: ['Python/FastAPI agent runtime with a Java 21 control plane', 'Step-level tracing, eval harness and cost/latency tracking'],
+      },
+      {
         tagline: 'On-device AI face recognition for YouTube',
         desc:    'A privacy-first Chrome extension that recognizes selected people on device and automatically skips the scenes where they appear.',
         role:    'AI product engineering',
@@ -383,12 +389,6 @@ export const translations: Record<Lang, T> = {
         desc:    'A personal platform that monitors medtech news from more than 30 global sources alongside FDA and CE/MDR approvals.',
         role:    'Product development + data collection',
         bullets: ['Real-time news aggregation and automatic Turkish headline translation', 'Approval tracking, category filters and favorites'],
-      },
-      {
-        tagline: 'Measurement and observability platform for AI agents',
-        desc:    'An open-source platform being developed through a six-month roadmap to measure agent behavior, catch regressions and trace tasks end to end.',
-        role:    'Platform architecture + eval infrastructure',
-        bullets: ['Python/FastAPI agent runtime with a Java 21 control plane', 'Step-level tracing, eval harness and cost/latency tracking'],
       },
       {
         tagline: 'JavaFX stock analysis tool',
@@ -541,6 +541,12 @@ export const translations: Record<Lang, T> = {
     },
     projects: [
       {
+        tagline: 'Mess- und Observability-Plattform für KI-Agenten',
+        desc:    'Eine Plattform, die in einer sechsmonatigen Roadmap entwickelt wird, um Agentenverhalten zu messen, Regressionen zu erkennen und Aufgaben lückenlos nachzuverfolgen.',
+        role:    'Plattformarchitektur + Eval-Infrastruktur',
+        bullets: ['Python/FastAPI-Agent-Runtime mit Java-21-Control-Plane', 'Schrittweises Tracing, Eval-Harness und Kosten-/Latenz-Tracking'],
+      },
+      {
         tagline: 'Lokale KI-Gesichtserkennung für YouTube',
         desc:    'Eine datenschutzorientierte Chrome-Erweiterung, die ausgewählte Personen lokal erkennt und Szenen mit ihnen automatisch überspringt.',
         role:    'KI-Produktentwicklung',
@@ -551,12 +557,6 @@ export const translations: Record<Lang, T> = {
         desc:    'Eine persönliche Plattform für Medizintechnik-Nachrichten aus mehr als 30 globalen Quellen sowie FDA- und CE/MDR-Zulassungen.',
         role:    'Produktentwicklung + Datenerfassung',
         bullets: ['Nachrichtenaggregation in Echtzeit und automatische türkische Titelübersetzung', 'Zulassungsverfolgung, Kategoriefilter und Favoriten'],
-      },
-      {
-        tagline: 'Mess- und Observability-Plattform für KI-Agenten',
-        desc:    'Eine Open-Source-Plattform, die in einer sechsmonatigen Roadmap entwickelt wird, um Agentenverhalten zu messen, Regressionen zu erkennen und Aufgaben lückenlos nachzuverfolgen.',
-        role:    'Plattformarchitektur + Eval-Infrastruktur',
-        bullets: ['Python/FastAPI-Agent-Runtime mit Java-21-Control-Plane', 'Schrittweises Tracing, Eval-Harness und Kosten-/Latenz-Tracking'],
       },
       {
         tagline: 'JavaFX-basiertes Aktienanalyse-Tool',

@@ -12,7 +12,22 @@ export const portfolio = {
   // `link` says where the row points; `privateRepo` marks work whose source is
   // closed, so the UI can say so instead of linking visitors into a 404.
   // Every entry carries both fields so the shape stays uniform for consumers.
+  //
+  // DİKKAT: sıra, translations.projects[] ile konum bazlı eşleşiyor (her dilde
+  // ayrı ayrı). Burada sırayı değiştirirsen translations.ts'teki tr/en/de
+  // dizilerini de aynı şekilde taşı, yoksa açıklamalar yanlış projeye düşer.
+  // Ekranda ilk sırada görünen aynı zamanda çözümler sayfasında açık gelendir.
   projects: [
+    {
+      id: 'cautrum',
+      name: 'CAUTRUM',
+      year: '2026',
+      tags: ['ai agents', 'observability', 'eval'],
+      href: 'https://instagram.com/cautrumofficial',
+      link: 'instagram' as const,
+      privateRepo: true,
+      status: 'wip' as const,
+    },
     {
       id: 'character-skipper',
       name: 'Character Skipper',
@@ -32,16 +47,6 @@ export const portfolio = {
       link: 'github' as const,
       privateRepo: false,
       status: 'canlı' as const,
-    },
-    {
-      id: 'cautrum',
-      name: 'CAUTRUM',
-      year: '2026',
-      tags: ['ai agents', 'observability', 'eval'],
-      href: 'https://instagram.com/cautrumofficial',
-      link: 'instagram' as const,
-      privateRepo: true,
-      status: 'wip' as const,
     },
     {
       id: 'stockanalyzer',

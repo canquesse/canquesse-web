@@ -54,8 +54,8 @@ export default function Solutions({ t }: { t: T }) {
                   </span>
                 </>
               }
+              summary={tp?.desc}
             >
-              <p className="disc-desc">{tp?.desc}</p>
               {tp && tp.bullets.length > 0 && (
                 <ul className="disc-bullets">
                   {tp.bullets.map((b, j) => <li key={j}>{b}</li>)}
