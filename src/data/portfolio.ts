@@ -38,7 +38,7 @@ export const portfolio = {
       name: 'CAUTRUM',
       year: '2026',
       tags: ['ai agents', 'observability', 'eval'],
-      href: 'https://instagram.com/cautrumoffical',
+      href: 'https://instagram.com/cautrumofficial',
       link: 'instagram' as const,
       privateRepo: true,
       status: 'wip' as const,
