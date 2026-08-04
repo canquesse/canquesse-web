@@ -43,11 +43,12 @@ export const metadata: Metadata = {
 };
 
 // Set the theme before first paint to avoid a flash of the wrong palette.
-const themeScript = `(function(){try{var t=localStorage.getItem('cq_theme');document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();`;
+// İlk ziyaret aydınlık başlar; daha önce tema seçmiş biri kendi tercihini görür.
+const themeScript = `(function(){try{var t=localStorage.getItem('cq_theme');document.documentElement.setAttribute('data-theme',t==='dark'?'dark':'light');}catch(e){document.documentElement.setAttribute('data-theme','light');}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="dark" suppressHydrationWarning>
+    <html lang="en" data-theme="light" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

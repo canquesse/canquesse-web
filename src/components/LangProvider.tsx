@@ -22,6 +22,27 @@ const SHIFT_LABEL: Record<Lang, string> = {
 
 type LanguageFlight = { from: Lang; to: Lang; id: number };
 
+/**
+ * Ziyaretçinin tarayıcı dil tercihinden desteklenen bir dil seçer.
+ *
+ * Bilerek ülke değil dil bakıyoruz: site statik olduğu için sunucu tarafında
+ * ülke bilgisi yok, ayrıca ülke dilin kötü bir vekili — Almanya'daki bir Türk'e
+ * Türkçe, Türkiye'deki bir Alman'a Almanca gelmesi doğrusu.
+ *
+ * navigator.languages sıralıdır; ilk eşleşen tercih kazanır. Eşleşme yoksa
+ * null döner ve varsayılan 'en' kalır.
+ */
+function detectLang(): Lang | null {
+  if (typeof navigator === 'undefined') return null;
+  const prefs = navigator.languages?.length ? navigator.languages : [navigator.language];
+  for (const pref of prefs) {
+    // 'tr-TR' -> 'tr', 'de-AT' -> 'de'
+    const base = pref?.toLowerCase().split('-')[0] as Lang | undefined;
+    if (base && LANGS.includes(base)) return base;
+  }
+  return null;
+}
+
 type Ctx = { lang: Lang; setLang: (l: Lang) => void; t: T };
 const LangContext = createContext<Ctx | null>(null);
 
@@ -35,8 +56,15 @@ export function LangProvider({ children }: { children: ReactNode }) {
     try {
       const saved = localStorage.getItem('cq_lang') as Lang | null;
       if (saved && LANGS.includes(saved)) {
+        // Kullanıcının kendi seçimi her zaman tarayıcı tercihini yener.
         setLangState(saved);
         document.documentElement.lang = saved;
+      } else {
+        const detected = detectLang();
+        if (detected) {
+          setLangState(detected);
+          document.documentElement.lang = detected;
+        }
       }
     } catch {}
     setReady(true);

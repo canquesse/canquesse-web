@@ -23,13 +23,13 @@ const Moon = () => (
 );
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>('dark');
+  const [theme, setTheme] = useState<Theme>('light');
   const [transition, setTransition] = useState<ThemeTransition | null>(null);
   const timers = useRef<number[]>([]);
 
   useEffect(() => {
     const id = window.setTimeout(() => {
-      const current = (document.documentElement.getAttribute('data-theme') as Theme) || 'dark';
+      const current = (document.documentElement.getAttribute('data-theme') as Theme) || 'light';
       setTheme(current);
     }, 0);
     return () => {
