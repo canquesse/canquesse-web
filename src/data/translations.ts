@@ -62,6 +62,7 @@ export interface T {
   education: { school: string; field: string; period: string; tags: [string, string] };
   projects: Array<{ tagline: string; desc: string; role: string; bullets: string[] }>;
   statusMap: Record<string, string>;
+  projectMeta: { privateRepo: string; instagram: string };
   contact: {
     big: string;
     sub: string;
@@ -235,6 +236,7 @@ export const translations: Record<Lang, T> = {
       },
     ],
     statusMap: { canlı: 'canlı', wip: 'WIP', arşiv: 'arşiv' },
+    projectMeta: { privateRepo: 'özel repo', instagram: 'Instagram' },
     contact: {
       big:         'KONUŞALIM.',
       sub:         'Bir projeniz ya da bir fikriniz mi var? Birlikte çözelim.',
@@ -402,6 +404,7 @@ export const translations: Record<Lang, T> = {
       },
     ],
     statusMap: { canlı: 'live', wip: 'wip', arşiv: 'archive' },
+    projectMeta: { privateRepo: 'private repo', instagram: 'Instagram' },
     contact: {
       big:         "LET'S TALK.",
       sub:         'Have a project or an idea? Let\'s build a solution together.',
@@ -569,6 +572,7 @@ export const translations: Record<Lang, T> = {
       },
     ],
     statusMap: { canlı: 'live', wip: 'wip', arşiv: 'archiv' },
+    projectMeta: { privateRepo: 'privates Repo', instagram: 'Instagram' },
     contact: {
       big:         'REDEN WIR.',
       sub:         'Haben Sie ein Projekt oder eine Idee? Lassen Sie uns gemeinsam eine Lösung bauen.',

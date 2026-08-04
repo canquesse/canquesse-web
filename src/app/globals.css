@@ -844,7 +844,10 @@ html[data-theme="light"] .brand .logo-mark { filter: drop-shadow(0 4px 12px rgba
 .hero-row-meta {
   font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.12em;
   color: var(--ink-3); text-transform: uppercase; white-space: nowrap;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 0.35rem;
 }
+/* Kaynağı kapalı işler için durum satırının altına düşen küçük not. */
+.hero-row-private { color: var(--ink-4); }
 @media (max-width: 720px) {
   .hero-row { grid-template-columns: 1fr auto; }
   .hero-row-tagline { display: none; }
@@ -1255,6 +1258,11 @@ html[data-theme="light"] .brand .logo-mark { filter: drop-shadow(0 4px 12px rgba
 .work-link:active { transform: translateY(3px); box-shadow: 0 0 0 transparent; }
 .work-link .arrow { transition: transform var(--dur-fast) var(--ease); }
 .work-link:hover .arrow { transform: translate(2px, -2px); }
+.work-actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s3); }
+.work-private {
+  font-size: var(--t-label); letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-3);
+}
 @media (prefers-reduced-motion: reduce) { .disc-panel { transition: none; } }
 
 /* ── Solutions ─────────────────────────────────────────────────────────── */

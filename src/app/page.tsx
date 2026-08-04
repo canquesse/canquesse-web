@@ -70,7 +70,12 @@ export default function Home() {
                 >
                   <span className="hero-row-name">{p.name}</span>
                   <span className="hero-row-tagline">{tp?.tagline}</span>
-                  <span className="hero-row-meta">{t.statusMap[p.status]}</span>
+                  <span className="hero-row-meta">
+                    {t.statusMap[p.status]}
+                    {p.privateRepo && (
+                      <span className="hero-row-private">{t.projectMeta.privateRepo}</span>
+                    )}
+                  </span>
                 </a>
               </Reveal>
             );

@@ -65,10 +65,19 @@ export default function Solutions({ t }: { t: T }) {
                 {p.tags.map((tag) => <span key={tag} className="tag">{tag}</span>)}
               </div>
               {p.href && (
-                <a className="work-link" href={p.href} target="_blank" rel="noreferrer">
-                  {t.contact.viewProject.replace(' ↗', '')}
-                  <span className="arrow"> ↗</span>
-                </a>
+                <div className="work-actions">
+                  <a className="work-link" href={p.href} target="_blank" rel="noreferrer">
+                    {p.link === 'instagram'
+                      ? t.projectMeta.instagram
+                      : t.contact.viewProject.replace(' ↗', '')}
+                    <span className="arrow"> ↗</span>
+                  </a>
+                  {/* Kaynak kapalıysa bunu söylüyoruz — ziyaretçiyi olmayan bir
+                      repoya göndermektense durumu belirtmek daha dürüst. */}
+                  {p.privateRepo && (
+                    <span className="work-private mono">{t.projectMeta.privateRepo}</span>
+                  )}
+                </div>
               )}
             </Disclosure>
           );
