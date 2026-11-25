@@ -1,0 +1,17 @@
+---
+import { brand } from '../content/shared';
+
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+const brandAssets = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/brand`;
+---
+
+<span class:list={['logo', className]} aria-hidden="true">
+  <picture>
+    <source media="(max-width: 900px)" srcset={`${brandAssets}/cq-light.svg`} type="image/svg+xml" />
+    <img class="logo-mark" src={`${brandAssets}/cq-mark.webp`} width="160" height="97" alt="" />
+  </picture>
+  <span class="logo-name">{brand}</span>
+</span>

@@ -1,0 +1,36 @@
+:root {
+  color-scheme: light;
+
+  /* Palette — the reference sculpture, seen in daylight */
+  --porcelain: #FBF2ED;
+  --blush: #F9DACD;
+  --champagne: #EFC6AF;
+  --coral: #F3654B;
+  --signal: #D8322A;
+  --lacquer: #9C191E;
+  --crimson: #750309;
+  --wine: #63171B;
+  --ink: #2C020A;
+  --gold: #B98372;
+  --cream: #FFF6F0;
+
+  /* Roles */
+  --bg: var(--porcelain);
+  --text: var(--ink);
+  --title: var(--wine);
+  --text-soft: color-mix(in srgb, var(--ink) 78%, var(--champagne));
+  --accent: var(--signal);
+  --hair: color-mix(in srgb, var(--wine) 22%, transparent);
+  --surface: #fff;
+
+  --serif: "Instrument Serif", "Times New Roman", serif;
+  --sans: "Geist", system-ui, sans-serif;
+  --mono: "Geist Mono", ui-monospace, monospace;
+
+  --gutter: clamp(1.25rem, 3.4vw, 4rem);
+  --max: 1720px;
+  --nav-h: 84px;
+
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --ease-io: cubic-bezier(.65, 0, .35, 1);
+}
