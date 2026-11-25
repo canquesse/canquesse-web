@@ -31,7 +31,7 @@ Deploy: `main` dalına push, Cloudflare Workers Builds derleyip canquesse.com'a 
 | `src/scripts/motion.ts` | Intro, `desktop` / `mobile` koreografisi, zemin renkleri, DOM hareketleri. |
 | `src/styles/tokens.css` | Palet ve temel ölçüler. |
 | `src/components/Logo.astro` | Meshy modelinden alınan CQ işareti ve Canquesse yazısı. |
-| `public/brand/` | WebP logo, SVG favicon ve Apple Touch Icon. |
+| `public/brand/` | 3D modelden alınan logo, favicon ve Apple Touch Icon. Düz tek renkli logo kullanılmaz. |
 
 ## Koreografi
 
