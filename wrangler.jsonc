@@ -1,13 +1,11 @@
 {
-  // Cloudflare Workers — sadece statik varlık sunumu. Worker script'i (`main`)
-  // bilerek yok: çalışan kod olmadığı için sunucu tarafı saldırı yüzeyi de yok.
+  // Cloudflare Workers: only static assets, no worker script on purpose.
   "name": "canquesse-web",
   "compatibility_date": "2026-08-02",
   "assets": {
-    // `npm run build` (next build, output: "export") buraya yazıyor.
-    "directory": "./out",
-    // Eşleşmeyen yollar için Next.js'in ürettiği 404.html, 404 status koduyla.
-    // "single-page-application" olsaydı her yol 200 dönerdi — istemiyoruz.
+    // `npm run build` (astro build) writes here
+    "directory": "./dist",
+    // unknown paths get 404.html with a real 404 status
     "not_found_handling": "404-page"
   }
 }

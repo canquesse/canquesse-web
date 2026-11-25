@@ -1,0 +1,296 @@
+---
+import geist from '@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url';
+import monoExt from '@fontsource-variable/geist-mono/files/geist-mono-latin-ext-wght-normal.woff2?url';
+import geistExt from '@fontsource-variable/geist/files/geist-latin-ext-wght-normal.woff2?url';
+import mono from '@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2?url';
+import serif from '@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2?url';
+import serifExt from '@fontsource/instrument-serif/files/instrument-serif-latin-ext-400-normal.woff2?url';
+import italic from '@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2?url';
+import italicExt from '@fontsource/instrument-serif/files/instrument-serif-latin-ext-400-italic.woff2?url';
+import Logo from './Logo.astro';
+import FooterMark from './FooterMark.astro';
+import QrCard from './QrCard.astro';
+import { qr } from '../content/qr';
+import ProjectPanel from './ProjectPanel.astro';
+import { sites } from '../content/site';
+import { brand, email, github, linkedin, ttaLinkedin, locales, marquee, projects, wordmark, type Locale } from '../content/shared';
+import '../styles/tokens.css';
+import '../styles/site.css';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const site = sites[lang];
+const c = site.contact;
+const work = site.work.projects.map((copy, i) => ({ ...copy, ...projects[i] }));
+const root = import.meta.env.BASE_URL.replace(/\/$/, '');
+const path = (l: Locale) => (l === 'en' ? `${root}/` : `${root}/${l}/`);
+/** the same page on the public address */
+const full = (l: Locale) => new URL(path(l), Astro.site).href;
+const share = new URL('/og.jpg', Astro.site).href;
+const names: Record<Locale, string> = { en: 'English', tr: 'Türkçe', de: 'Deutsch' };
+/** what the scripts need to know about this page */
+const data = JSON.stringify({ chapters: site.chapters, marquee, wordmark });
+const brandAssets = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/brand`;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={site.description} />
+    <meta name="theme-color" content="#D8322A" />
+    <link rel="canonical" href={full(lang)} />
+    {locales.map((l) => <link rel="alternate" hreflang={l} href={full(l)} />)}
+    <link rel="alternate" hreflang="x-default" href={full('en')} />
+    <link rel="preload" href="/models/cq.glb" as="fetch" type="model/gltf-binary" crossorigin />
+    <link rel="preload" href="/models/cq-color-4k.webp" as="fetch" type="image/webp" crossorigin media="(min-width: 901px)" />
+    <link rel="preload" href="/models/cq-color-2k.webp" as="fetch" type="image/webp" crossorigin media="(max-width: 900px)" />
+    <link rel="icon" type="image/svg+xml" href={`${brandAssets}/cq-favicon.svg`} />
+    <link rel="apple-touch-icon" sizes="180x180" href={`${brandAssets}/cq-apple-touch.png`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={full(lang)} />
+    <meta property="og:image" content={share} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:title" content={site.title} />
+    <meta property="og:description" content={site.description} />
+    <title>{site.title}</title>
+    <link rel="preload" href={serif} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={italic} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={geist} as="font" type="font/woff2" crossorigin />
+    <style is:inline set:html={`
+      @font-face{font-family:"Instrument Serif";src:url("${serif}") format("woff2");font-style:normal;font-weight:400;font-display:swap}
+      @font-face{font-family:"Instrument Serif";src:url("${serifExt}") format("woff2");font-style:normal;font-weight:400;font-display:swap;unicode-range:U+0100-02FF}
+      @font-face{font-family:"Instrument Serif";src:url("${italic}") format("woff2");font-style:italic;font-weight:400;font-display:swap}
+      @font-face{font-family:"Instrument Serif";src:url("${italicExt}") format("woff2");font-style:italic;font-weight:400;font-display:swap;unicode-range:U+0100-02FF}
+      @font-face{font-family:"Geist";src:url("${geist}") format("woff2");font-style:normal;font-weight:100 900;font-display:swap}
+      @font-face{font-family:"Geist";src:url("${geistExt}") format("woff2");font-style:normal;font-weight:100 900;font-display:swap;unicode-range:U+0100-02FF}
+      @font-face{font-family:"Geist Mono";src:url("${mono}") format("woff2");font-style:normal;font-weight:100 900;font-display:swap}
+      @font-face{font-family:"Geist Mono";src:url("${monoExt}") format("woff2");font-style:normal;font-weight:100 900;font-display:swap;unicode-range:U+0100-02FF}
+    `} />
+    <!-- Runs before first paint: decides whether elements start hidden, so nothing flashes before its animation. -->
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        d.classList.add(reduce ? 'is-still' : 'is-motion');
+        try {
+          // coming back from another language: no curtain, same colour, same place
+          var at = JSON.parse(sessionStorage.getItem('cq:at') || 'null');
+          if (at) { d.classList.add('is-return'); d.style.setProperty('--bg', at.bg); }
+        } catch (e) {}
+        // safety net: if the motion script never runs, show everything
+        window.__cqFallback = setTimeout(function () {
+          d.classList.add('is-fallback');
+          document.querySelectorAll('[data-bg]').forEach(function (el) { el.style.backgroundColor = el.getAttribute('data-bg'); });
+        }, 3500);
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">{site.skip}</a>
+
+    <canvas class="stage" data-stage aria-hidden="true"></canvas>
+
+    <header class="nav" data-nav>
+      <div class="nav-left">
+        <a class="nav-logo" href="#top" aria-label={`${brand}, ${site.contact.top}`}><Logo /></a>
+        <span class="nav-chapter micro" aria-hidden="true"><span data-chapter-label>{site.chapters[0].label}</span></span>
+      </div>
+      <div class="nav-right">
+        <div class="tools">
+          <nav class="lang" aria-label={site.nav.language} data-lang>
+            <button class="lang-now micro" type="button" aria-expanded="false" aria-label={`${site.nav.language}: ${names[lang]}`} data-lang-toggle>{lang.toUpperCase()}</button>
+            <ul role="list">
+              {locales.map((l) => <li><a class="micro" href={path(l)} hreflang={l} lang={l} aria-label={names[l]} aria-current={l === lang ? 'page' : undefined} data-lang-link>{l.toUpperCase()}</a></li>)}
+            </ul>
+          </nav>
+        </div>
+        <nav class="nav-links" aria-label={site.nav.main}>
+          {site.nav.links.map((link) => <a href={link.href}>{link.label}</a>)}
+          <a class="nav-cta" href="#contact">{site.nav.contact}</a>
+        </nav>
+      </div>
+    </header>
+
+    <nav class="rail" aria-label={site.nav.sections}>
+      {site.chapters.map((ch, i) => (
+        <a class="rail-dot" href={`#${ch.id}`} data-rail-dot={ch.id} aria-label={ch.label}>
+          <span class="rail-label micro">{String(i).padStart(2, '0')} {ch.label}</span>
+        </a>
+      ))}
+    </nav>
+
+    <main id="main" tabindex="-1">
+      <!-- HERO: the sculpture turns once, becomes glass, and the sentence is read through it -->
+      <section class="hero" id="top" data-hero data-chapter="top" data-bg="#FBF2ED">
+        <div class="sticky">
+          <h1 class="hero-title under" data-hero-title aria-label={`${site.hero.given} ${site.hero.surname}`}>
+            {[site.hero.given, site.hero.surname].map((word, i) => (
+              <span class:list={['hero-word', i ? 'hero-word--b' : 'hero-word--a']} data-hero-word aria-hidden="true">{Array.from(word).map((ch) => <span data-refract data-hero-ch>{ch}</span>)}</span>
+            ))}
+          </h1>
+          <p class="hero-line under" data-hero-line aria-label={site.hero.line.join(' ')}>
+            {site.hero.line.map((l) => <span class="hero-line-row" aria-hidden="true">{l.split(' ').map((w) => <span class="mask"><span data-refract data-line-word>{w}</span></span>)}</span>)}
+          </p>
+          <div class="hero-foot frame layer" data-hero-foot>
+            <p class="hero-lead" data-intro>{site.hero.lead}</p>
+            <p class="hero-meta micro" data-intro>{site.hero.meta.map((m) => <span data-scramble>{m}</span>)}</p>
+            <p class="cue micro" data-intro><span class="cue-line" aria-hidden="true"></span>{site.hero.cue}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="about" id="about" data-about data-chapter="about" data-bg="#F9DACD" aria-labelledby="about-title">
+        <div class="sticky">
+          <div class="about-inner frame layer">
+            <div class="about-head">
+              <p class="eyebrow micro" data-scramble>{site.about.label}</p>
+              <h2 id="about-title" class="about-title" data-rise>{site.about.title} <em>{site.about.titleAccent}</em></h2>
+            </div>
+            <p class="statement" data-ignite>{site.about.statement}</p>
+            <dl class="facts">
+              {site.about.facts.map((f) => <div><dt class="micro">{f.k}</dt><dd>{f.v}</dd></div>)}
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <!-- WORK -->
+      <section class="work" id="work" aria-labelledby="work-title" data-work data-chapter="work" data-bg="#FBF2ED">
+        <header class="work-head frame layer" data-work-head>
+          <h2 id="work-title" class="display" data-rise>{site.work.title} <em>{site.work.titleAccent}</em></h2>
+          <p class="section-note" data-rise>{site.work.note}</p>
+        </header>
+        <div class="projects" data-projects>
+          {work.map((project, index) => <ProjectPanel project={project} index={index} total={work.length} gate={site.work.gate} />)}
+        </div>
+      </section>
+
+      <!-- WORDMARK: the ribbon winds around the name -->
+      <section class="wordmark" aria-hidden="true" data-wordmark data-bg="#F3654B">
+        <div class="sticky"><p class="wordmark-word" data-wordmark-word>{wordmark}</p></div>
+      </section>
+
+      <!-- STACK: the ribbon is a spool of technologies -->
+      <section class="stack" id="stack" aria-labelledby="stack-title" data-stack data-chapter="stack" data-bg="#EFC6AF">
+        <div class="sticky">
+          <div class="stack-inner frame layer">
+            <div class="stack-head">
+              <h2 id="stack-title" class="display">{site.stack.title}</h2>
+              <p class="stack-note">{site.stack.note}</p>
+            </div>
+            <ul class="stack-groups" role="list">
+              {site.stack.groups.map((g, i) => (
+                <li class="stack-group" data-stack-group>
+                  <h3 class="micro">{g.title}</h3>
+                  <span class="stack-count micro" aria-hidden="true">{i + 1} / {site.stack.groups.length}</span>
+                  <p>{g.items.map((it) => <span>{it}</span>)}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXPERIENCE -->
+      <section class="experience" id="experience" aria-labelledby="experience-title" data-experience data-chapter="experience" data-bg="#FBF2ED">
+        <div class="experience-grid frame layer">
+          <header class="experience-head">
+            <p class="eyebrow micro" data-scramble>{site.experience.label}</p>
+            <h2 id="experience-title" class="display" data-rise>{site.experience.title} <em>{site.experience.titleAccent}</em></h2>
+          </header>
+          <ol class="timeline" role="list" data-timeline>
+            {site.experience.items.map((item) => (
+              <li class="t-item" data-rise-block>
+                <p class="t-period micro">{item.period}</p>
+                <h3>{item.organization}</h3>
+                <p class="t-role">{item.role}<span class="t-place">{item.place}</span></p>
+                {item.description && <p class="t-desc">{item.description}</p>}
+                {item.points.length > 0 && <dl class="points">{item.points.map((pt) => <div><dt>{pt.k}</dt><dd>{pt.v}</dd></div>)}</dl>}
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <!-- METHOD -->
+        <div class="experience-grid method frame layer" id="method" role="region" aria-labelledby="method-title" data-method data-chapter="method">
+          <header class="experience-head">
+            <p class="eyebrow micro" data-scramble>{site.method.label}</p>
+            <h2 id="method-title" class="display" data-rise>{site.method.title} <em>{site.method.titleAccent}</em></h2>
+          </header>
+          <ol class="principles" role="list">
+            {site.method.items.map((m) => <li data-rise-block><h3>{m.k}</h3><p>{m.v}</p></li>)}
+          </ol>
+        </div>
+      </section>
+
+      <!-- COMMUNITY: the red moment -->
+      <section class="community" id="community" aria-labelledby="community-title" data-community data-chapter="community" data-bg="#C9231F" data-on-red>
+        <div class="sticky">
+          <div class="community-inner frame">
+            <h2 id="community-title" class="community-title layer"><span data-rise data-start="top 56%">{site.community.title}</span> <em data-rise data-start="top 60%">{site.community.titleAccent}</em></h2>
+            <div class="community-text layer">
+              <ol class="steps" role="list">
+                {site.community.steps.map((st, i) => (
+                  <li class="step" data-step>
+                    <h3><span class="micro">{i + 1} / {site.community.steps.length}</span>{st.k}</h3>
+                    <p>{st.v}</p>
+                  </li>
+                ))}
+              </ol>
+              <div class="community-foot">
+                <div class="community-links">
+                  <a class="pill" href={qr.url} target="_blank" rel="noopener"><span>{site.community.join}</span><i aria-hidden="true">↗</i></a>
+                  <a class="pill pill--line" href={site.community.href} target="_blank" rel="noopener"><span>{site.community.cta}</span><i aria-hidden="true">↗</i></a>
+                  <a class="pill pill--line pill--in" href={ttaLinkedin} target="_blank" rel="noopener" aria-label={site.community.linkedin}><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5.2" cy="5.4" r="2.2" /><path d="M5.2 10.2V20M11 20v-9.8M11 14.4c0-2.6 1.6-4.2 3.9-4.2s3.9 1.6 3.9 4.3V20" /></svg></a>
+                </div>
+                <dl class="community-facts">
+                  {site.community.facts.map((f) => <div><dt>{f.n}</dt><dd>{f.k}</dd></div>)}
+                  <div class="as-of micro"><dd>{site.community.asOf}</dd></div>
+                </dl>
+              </div>
+            </div>
+            <QrCard {...site.community.qr} />
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- CONTACT -->
+    <footer class="footer" id="contact" aria-labelledby="contact-title" data-footer data-chapter="contact" data-bg="#F9DACD">
+      <div class="footer-inner frame">
+        <h2 id="contact-title" class="footer-title layer" data-rise>{c.line1}<br />{c.line2}<br /><em>{c.accent}</em></h2>
+        {email
+          ? <a class="cta layer" href={`mailto:${email}`}><span><small>{c.mail}</small>{email}</span><i aria-hidden="true">↗</i></a>
+          : <a class="cta layer" href={linkedin}><span>{c.fallback}</span><i aria-hidden="true">↗</i></a>}
+        <div class="footer-bar layer" data-footer-bar>
+          <svg class="thread" aria-hidden="true" data-thread><path /></svg>
+          <ul class="socials" role="list">
+            <li><a class="foot-link" href={github} target="_blank" rel="noopener"><FooterMark kind="github" /><span>GitHub</span></a></li>
+            <li><a class="foot-link" href={linkedin} target="_blank" rel="noopener"><FooterMark kind="linkedin" /><span>LinkedIn</span></a></li>
+          </ul>
+          <p class="foot-mid"><span>{c.copyright}</span><span class="micro"><span class="foot-dot" aria-hidden="true"></span>Bremen <time data-clock></time></span></p>
+          <a class="foot-link foot-link--top" href="#top"><span>{c.top}</span><FooterMark kind="top" /></a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- the curtain: one red field that lifts off the page -->
+    <div class="curtain" data-curtain aria-hidden="true">
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none"><path data-curtain-path d="M0 0 H100 V100 Q50 100 0 100 Z" /></svg>
+      <p class="curtain-word" data-curtain-word>{brand}</p>
+      <span class="curtain-bar"><i data-curtain-bar></i></span>
+    </div>
+
+    <script type="application/json" data-site set:html={data} />
+    <script>
+      import { initMotion } from '../scripts/motion';
+      const cleanup = initMotion();
+      if (import.meta.hot) import.meta.hot.dispose(() => cleanup.then((f) => f()));
+    </script>
+  </body>
+</html>

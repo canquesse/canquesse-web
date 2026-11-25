@@ -1,0 +1,26 @@
+---
+/** the invitation as an object: it lies in the corner of the scene and comes up flat when you reach for it */
+import { qr } from '../content/qr';
+interface Props { hover: string; tap: string; scan: string; label: string }
+const { hover, tap, scan, label } = Astro.props;
+const n = qr.size, q = 4, c = n / 2;
+---
+
+<div class="qr layer" data-qr>
+  <p class="qr-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 8V4.5A1.5 1.5 0 0 1 4.5 3H8M16 3h3.5A1.5 1.5 0 0 1 21 4.5V8M21 16v3.5a1.5 1.5 0 0 1-1.5 1.5H16M8 21H4.5A1.5 1.5 0 0 1 3 19.5V16M7.5 12h9" /></svg><span class="qr-hover">{hover}</span><span class="qr-tap">{tap}</span></p>
+  <a class="qr-card" href={qr.url} target="_blank" rel="noopener" aria-label={label} data-qr-card>
+    {[0, 1, 2, 3, 4, 5].map((i) => <i style={`--z:${i}`} aria-hidden="true"></i>)}
+    <span class="qr-face">
+      <svg viewBox={`${-q} ${-q} ${n + 2 * q} ${n + 2 * q}`} shape-rendering="crispEdges" aria-hidden="true">
+        <rect x={-q} y={-q} width={n + 2 * q} height={n + 2 * q} fill="#FFF8F3" />
+        <path d={qr.path} fill="#2C020A" />
+        <g transform={`translate(${c - 5} ${c - 2.55}) scale(.01)`} shape-rendering="geometricPrecision" fill="#C9231F">
+          <circle cx="268" cy="63" r="63" /><circle cx="732" cy="63" r="63" />
+          <path d="M92 250C150 160 220 134 315 134C370 134 410 146 433 160C350 162 320 190 270 220C230 245 200 250 165 250ZM908 250C850 160 780 134 685 134C630 134 590 146 567 160C650 162 680 190 730 220C770 245 800 250 835 250Z" />
+          <path d="M80 267H165C210 267 250 240 285 218H715C750 240 790 267 835 267H920C965 340 985 420 1000 494H909C875 360 770 268 670 268C590 268 548 310 548 370V440C548 470 570 485 592 490V494H408V490C430 485 452 470 452 440V370C452 310 410 268 330 268C230 268 125 360 91 494H0C15 420 35 340 80 267Z" />
+        </g>
+      </svg>
+      <span class="qr-scan micro">{scan}</span>
+    </span>
+  </a>
+</div>

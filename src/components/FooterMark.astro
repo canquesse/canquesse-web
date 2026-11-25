@@ -1,0 +1,32 @@
+---
+/** small drawings for the footer links: each one is what the link does */
+interface Props { kind: 'github' | 'linkedin' | 'top' }
+const { kind } = Astro.props;
+// commits that form the kilim's stepped diamond
+const cells = Array.from({ length: 49 }, (_, i) => {
+  const x = i % 7, y = Math.floor(i / 7), d = Math.abs(x - 3) + Math.abs(y - 3);
+  return { x, y, d, c: d > 4 ? 0 : d === 0 ? 3 : d % 3 === 1 ? 2 : d % 3 === 2 ? 0 : 1 };
+});
+---
+
+{kind === 'github' && (
+  <svg class="fm fm-github" viewBox="0 0 34 34" aria-hidden="true">
+    {cells.map((k) => <rect class={`k${k.c}`} x={k.x * 5} y={k.y * 5} width="4" height="4" rx="1" style={`--n:${k.d * 2 + ((k.x * 5 + k.y * 3) % 4)}`} />)}
+  </svg>
+)}
+{kind === 'linkedin' && (
+  <svg class="fm fm-linkedin" viewBox="0 0 52 34" aria-hidden="true">
+    <path class="r1" d="M9 20 C 17 2, 25 2, 26 17 S 35 32, 43 14" pathLength="1" />
+    <path class="r2" d="M9 20 C 17 2, 25 2, 26 17 S 35 32, 43 14" pathLength="1" />
+    <circle class="a" cx="9" cy="20" r="5" /><circle class="b" cx="43" cy="14" r="5" />
+  </svg>
+)}
+{kind === 'top' && (
+  <svg class="fm fm-top" viewBox="0 0 26 34" aria-hidden="true">
+    <defs><clipPath id="coil"><rect x="-2" y="0" width="30" height="34" rx="3" /></clipPath></defs>
+    <g clip-path="url(#coil)"><g class="coil">
+      {[0, 1, 2, 3, 4, 5].map((i) => <path class="back" d={`M23 ${i * 10 - 2} C 17 ${i * 10 + 1.5}, 9 ${i * 10 + 1.5}, 3 ${i * 10 - 2}`} />)}
+      {[0, 1, 2, 3, 4, 5].map((i) => <path class="front" d={`M3 ${i * 10 - 2} C 4 ${i * 10 + 6}, 22 ${i * 10}, 23 ${i * 10 + 8}`} />)}
+    </g></g>
+  </svg>
+)}

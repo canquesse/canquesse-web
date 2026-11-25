@@ -1,0 +1,8 @@
+---
+import Page from '../components/Page.astro';
+import { locales, type Locale } from '../content/shared';
+
+export const getStaticPaths = () => locales.filter((l) => l !== 'en').map((lang) => ({ params: { lang } }));
+---
+
+<Page lang={Astro.params.lang as Locale} />

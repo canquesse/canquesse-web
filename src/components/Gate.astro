@@ -1,0 +1,19 @@
+---
+/** the interactive scene of the CAUTRUM card (scripts/gate.ts) */
+import type { GateCopy } from '../content/site';
+interface Props { copy: GateCopy }
+const { copy } = Astro.props;
+const chips = ['read_docs', 'search_index', 'send_email', 'delete_table'];
+---
+
+<div class="gate" data-gate>
+  <div class="gate-ui">
+    <p class="gate-title micro">{copy.propose}</p>
+    <div class="gate-chips">{chips.map((ch) => <button type="button" class="gate-chip micro" data-gate-chip={ch}>{ch}</button>)}</div>
+    <ol class="gate-log micro" role="list" aria-label={copy.logLabel} data-gate-log></ol>
+    <p class="gate-note">{copy.note}</p>
+  </div>
+  <div class="gate-focus" data-gate-focus role="img" aria-label={copy.alt}></div>
+  <p class="gate-tap micro" aria-hidden="true">{copy.tap}</p>
+  <script type="application/json" data-gate-words set:html={JSON.stringify(copy.words)} />
+</div>
